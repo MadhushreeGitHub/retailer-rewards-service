@@ -31,7 +31,7 @@ The Retailer Rewards Service calculates reward points for customers based on the
 
 1. **Clone the Repository**:
    ```sh
-   git clone https://github.com/MadhushreeGitHub/retailer-rewards-service.git
+   git clone https://github.com/MadhushreeGitHub/retailer-rewards-service/tree/master
    cd retailer-rewards-service
    
  2. **Build the Project**:
