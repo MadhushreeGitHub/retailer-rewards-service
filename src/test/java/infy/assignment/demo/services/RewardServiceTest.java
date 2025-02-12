@@ -6,55 +6,92 @@ import java.util.HashMap;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 import infy.assignment.demo.model.Customer;
 import infy.assignment.demo.model.Record;
 import infy.assignment.demo.model.Transaction;
-
-
+import static org.mockito.Mockito.*;
+import infy.assignment.demo.services.RewardService;
 
 
 
 public class RewardServiceTest {
 
-    private RewardService rewardService;
+  @InjectMocks
+  private RewardService rewardService;
 
-    @BeforeEach
-    public void setUp() {
-        rewardService = new RewardService();
-    }
+  @Mock
+  private Record recordMock;
 
-    @Test
-    public void testCalculateRewardPoints() {
-        assertEquals(0, rewardService.calculateRewardPoints(30));
-        assertEquals(0, rewardService.calculateRewardPoints(50));
-        assertEquals(25, rewardService.calculateRewardPoints(75));
-        assertEquals(90, rewardService.calculateRewardPoints(120));
-    }
+  @BeforeEach
+  public void setUp() {
+    MockitoAnnotations.openMocks(this);
+    rewardService = new RewardService();
+  }
 
-    @Test
-    public void testCustomerRewardCal() {
-        List<Record> recordList = new ArrayList<>();
-        Customer customer = new Customer();
-        customer.setEmail("test@example.com");
-        customer.setMonthWiseReward(new HashMap<>());
-        customer.setCustomerTotalReward(0);
+  @Test
+  public void testCalculateRewardPoints() {
+    assertEquals(0, rewardService.calculateRewardPoints(30));
+    assertEquals(0, rewardService.calculateRewardPoints(50));
+    assertEquals(25, rewardService.calculateRewardPoints(75));
+    assertEquals(90, rewardService.calculateRewardPoints(120));
+  }
 
-        Transaction transaction = new Transaction();
-        transaction.setTransactionAmount(120);
-        transaction.setTransactionDate(java.util.Date.from(java.time.LocalDate.now().atStartOfDay(java.time.ZoneId.systemDefault()).toInstant()));
+  @Test
+  public void testCustomerRewardCal() {
+    List<Record> recordList = new ArrayList<>();
+    Customer customer = new Customer();
+    customer.setEmail("test@example.com");
+    customer.setMonthWiseReward(new HashMap<>());
+    customer.setCustomerTotalReward(0);
 
-        Record record = new Record();
-        record.setCustomer(customer);
-        record.setTransaction(transaction);
+    Transaction transaction = new Transaction();
+    transaction.setTransactionAmount(120);
+    transaction.setTransactionDate(java.util.Date.from(
+        java.time.LocalDate.now().atStartOfDay(java.time.ZoneId.systemDefault()).toInstant()));
 
-        recordList.add(record);
+    Record record = new Record();
+    record.setCustomer(customer);
+    record.setTransaction(transaction);
 
-        List<Customer> result = rewardService.customerRewardCal(recordList);
+    recordList.add(record);
 
-        assertEquals(1, result.size());
-        Customer resultCustomer = result.get(0);
-        assertEquals("test@example.com", resultCustomer.getEmail());
-        assertEquals(90, resultCustomer.getCustomerTotalReward());
-        assertEquals(1, resultCustomer.getMonthWiseReward().size());
-    }
+    List<Customer> result = rewardService.customerRewardCal(recordList);
+
+    assertEquals(1, result.size());
+    Customer resultCustomer = result.get(0);
+    assertEquals("test@example.com", resultCustomer.getEmail());
+    assertEquals(90, resultCustomer.getCustomerTotalReward());
+    assertEquals(1, resultCustomer.getMonthWiseReward().size());
+  }
+
+  @Test
+  public void testProcessRecord() {
+    Customer customer = new Customer();
+    customer.setEmail("test@example.com");
+    customer.setMonthWiseReward(new HashMap<>());
+    customer.setCustomerTotalReward(0);
+
+    Transaction transaction = new Transaction();
+    transaction.setTransactionAmount(120);
+    transaction.setTransactionDate(java.util.Date.from(
+        java.time.LocalDate.now().atStartOfDay(java.time.ZoneId.systemDefault()).toInstant()));
+
+    when(recordMock.getCustomer()).thenReturn(customer);
+    when(recordMock.getTransaction()).thenReturn(transaction);
+
+    List<Record> recordList = new ArrayList<>();
+    recordList.add(recordMock);
+
+    List<Customer> result = rewardService.customerRewardCal(recordList);
+
+    assertEquals(1, result.size());
+    Customer resultCustomer = result.get(0);
+    assertEquals("test@example.com", resultCustomer.getEmail());
+    assertEquals(90, resultCustomer.getCustomerTotalReward());
+    assertEquals(1, resultCustomer.getMonthWiseReward().size());
+  }
 }

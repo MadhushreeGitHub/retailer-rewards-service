@@ -1,5 +1,7 @@
 package infy.assignment.demo.services;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -8,70 +10,207 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import infy.assignment.demo.model.Customer;
 import infy.assignment.demo.model.Record;
+import infy.assignment.demo.model.TransactionDetail;
 
 
 
 @Service
 public class RewardService implements Reward {
 
-    @Override
-    public double calculateRewardPoints(double amount){
-        double rewardPoints = 0;
-        if(amount < 50){
-            rewardPoints = 0;
-        }
-        else if (amount >= 50 && amount <= 100) {
-            rewardPoints = (amount - 50);
-        }
-        else if (amount >= 100) {
-            rewardPoints = (amount - 100) *
-            2 + 50;
-        }
+  private List<Record> recordList = new ArrayList<>();
+
+  public RewardService() {
+    try {
+      seedData();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Description: This method calculates the reward points for the customer based on the transaction
+   * amount.
+   * 
+   * @Param: double amount : Transaction amount for which the reward points need to be calculated.
+   * @Return: double : Reward points for the transaction amount.
+   */
+  @Override
+  public double calculateRewardPoints(double amount) {
+    double rewardPoints = 0;
+    if (amount < 50) {
+      rewardPoints = 0;
+    } else if (amount >= 50 && amount <= 100) {
+      rewardPoints = (amount - 50);
+    } else if (amount >= 100) {
+      rewardPoints = (amount - 100) * 2 + 50;
+    }
     return rewardPoints;
+  }
+
+
+  /**
+   * Description: This method iterate through the list of records and calculate the reward points
+   * for each customer.
+   * 
+   * @Param: List<Record> recordList : List of records containing transaction details for each
+   *         customer.
+   * @Return: List<Customer>: List of customers with their reward points.
+   */
+  public List<Customer> customerRewardCal(List<Record> recordList) {
+    Map<String, Customer> customerMap = new HashMap<>();
+    LocalDate threeMonthsAgo = LocalDate.now().minusMonths(3);
+
+    for (Record record : recordList) {
+      processRecord(record, customerMap, threeMonthsAgo);
     }
 
-    public List<Customer> customerRewardCal(List<Record> recordList) {
-        Map<String, Customer> customerMap = new HashMap<> ();
-        LocalDate threeMonthsAgo = LocalDate.now().minusMonths (3);
+    return new ArrayList<>(customerMap.values());
+  }
 
-        for (Record rec : recordList) {
-            LocalDate transactionDate = rec.getTransaction().getTransactionDate().toInstant().atZone(ZoneId.systemDefault()). toLocalDate();
-            String transactionMonth ="";
-            Customer customer = rec.getCustomer();
-            String customerEmail = customer.getEmail();
+  /**
+   * Description: This method calculates the total reward points for the customer.
+   * 
+   * @param customer
+   * @param recentRewardPoints
+   * @return void
+   */
+  private void calCustomerTotalReward(Customer customer, double recentRewardPoints) {
+    if (customer.getCustomerTotalReward() == 0.0) {
+      customer.setCustomerTotalReward(recentRewardPoints);
+    } else {
+      customer.setCustomerTotalReward(customer.getCustomerTotalReward() + recentRewardPoints);
+    }
 
-            if(transactionDate. isAfter(threeMonthsAgo)) {
-                double rewardPoints = calculateRewardPoints (rec.getTransaction().getTransactionAmount()); 
-                transactionMonth = transactionDate.getMonth().name();
+  }
 
-                if (!customerMap.containsKey (customerEmail)) {
+  /**
+   * Description: This method updates the reward points for each customer based on the transaction
+   * month.
+   * 
+   * @Param: Customer customer : Customer object for which the reward points need to be updated.
+   * @Param: String transactionMonth : Month of the transaction.
+   * @Param: double rewardPoints : Reward points for the transaction.
+   * @Return: void
+   */
+  private void updateMontWiseReward(Customer customer, String transactionMonth,
+      double rewardPoints) {
 
-                    customer.setMonthWiseReward(new HashMap<>()); 
-                    customerMap.put(customerEmail, customer);
-                }
-                
-                Customer existingCustomer = customerMap.get (customerEmail);
-                HashMap<String, Double> monthWiseReward = existingCustomer.getMonthWiseReward();
-                        
-                if (transactionMonth != "" && monthWiseReward.containsKey (transactionMonth)) {
-                        double monthRewardVal = rewardPoints + monthWiseReward.get(transactionMonth);
-                        monthWiseReward. put (transactionMonth, monthRewardVal); 
-                }
-                else{
-                    monthWiseReward. put (transactionMonth, rewardPoints);
-                        
-                }
-                    existingCustomer.setMonthWiseReward(monthWiseReward);
-                    existingCustomer.setCustomerTotalReward(existingCustomer.getCustomerTotalReward() + rewardPoints);
+    HashMap<String, Double> monthWiseReward = customer.getMonthWiseReward();
+    if (customer.getTransactionDetails() == null) {
+      customer.setTransactionDetails(new ArrayList<>());
+    }
 
-            }
-        }
+    if (transactionMonth != "" && monthWiseReward.containsKey(transactionMonth)) {
+      double monthRewardValue = rewardPoints + monthWiseReward.get(transactionMonth);
+      monthWiseReward.put(transactionMonth, monthRewardValue);
+    } else {
+      monthWiseReward.put(transactionMonth, rewardPoints);
+    }
+    customer.setMonthWiseReward(monthWiseReward);
 
-                return new ArrayList<>(customerMap.values());
+  }
 
+  /**
+   * Description: This method processes the record and calculates the reward points for the
+   * customer.
+   * 
+   * @param record : Record object containing transaction details.
+   * @param customerMap : Map containing customer email as key and customer object as value.
+   * @param threeMonthsAgo : Date three months ago from the current date.
+   * @return void
+   */
+  private void processRecord(Record record, Map<String, Customer> customerMap,
+      LocalDate threeMonthsAgo) {
+    LocalDate transactionDate = record.getTransaction().getTransactionDate().toInstant()
+        .atZone(ZoneId.systemDefault()).toLocalDate();
+    if (transactionDate.isAfter(threeMonthsAgo)) {
+      String transactionMonth = transactionDate.getMonth().name();
+      Customer customer = record.getCustomer();
+      String customerEmail = customer.getEmail();
+      if (!customerMap.containsKey(customerEmail)) {
+        updateCustomerMap(customerMap, customer, customerEmail);
+      }
+      customer = customerMap.get(customerEmail);
+      double rewardPoints = calculateRewardPoints(record.getTransaction().getTransactionAmount());
+      this.calCustomerTotalReward(customer, rewardPoints);
+      this.updateMontWiseReward(customer, transactionMonth, rewardPoints);
+
+
+      addTransactionDetail(customer, transactionDate,
+          record.getTransaction().getTransactionAmount(), rewardPoints);
 
     }
+  }
+
+  /**
+   * Description: This method adds the transaction details to the customer object.
+   * 
+   * @param customer : Customer object for which the transaction details need to be added.
+   * @param transactionDate : Date of the transaction.
+   * @param transactionAmount : Amount of the transaction.
+   * @param rewardPoints: Reward points for the transaction.
+   * @return void
+   */
+  private void addTransactionDetail(Customer customer, LocalDate transactionDate,
+      double transactionAmount, double rewardPoints) {
+    TransactionDetail transactionDetail =
+        new TransactionDetail(transactionDate, transactionAmount, rewardPoints);
+    List<TransactionDetail> transactionDetails = customer.getTransactionDetails();
+    if (transactionDetails == null) {
+      transactionDetails = new ArrayList<>();
+      customer.setTransactionDetails(transactionDetails);
+    }
+    transactionDetails.add(transactionDetail);
+  }
+
+  /**
+   * Description: This method updates the customer map with the customer object.
+   * 
+   * @param customerMap : Map containing customer email as key and customer object as value.
+   * @param customer : Customer object to be added to the map.
+   * @param customerEmail : Email of the customer.
+   * @return void
+   */
+  private void updateCustomerMap(Map<String, Customer> customerMap, Customer customer,
+      String customerEmail) {
+    if (!customerMap.containsKey(customerEmail)) {
+      customer.setMonthWiseReward(new HashMap<>());
+      customer.setTransactionDetails(new ArrayList<>());
+      customerMap.put(customerEmail, customer);
+    }
+  }
+
+
+  /**
+   * Description: This method reads the seed data from the json file and adds it to the record list.
+   * 
+   * @File: seedData.json
+   * @Path: src/main/resources/seedData.json
+   * @return void
+   * @throws IOException
+   */
+  private void seedData() throws IOException {
+    ObjectMapper objectMapper = new ObjectMapper();
+    InputStream inputStream = getClass().getResourceAsStream("/seedData.json");
+    List<Record> records =
+        objectMapper.readValue(inputStream, new TypeReference<List<Record>>() {});
+    recordList.addAll(records);
+  }
+
+  /**
+   * Description: This method returns the list of records.
+   * 
+   * @return List<Record> : List of records. List created using the seed data and JSON file.
+   */
+  public List<Record> getRecordList() {
+    return recordList;
+  }
+
+
 
 }

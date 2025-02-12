@@ -1,0 +1,114 @@
+{
+    "customers": [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "phone": "123-456-7890"
+      },
+      {
+        "id": 2,
+        "name": "Jane Smith",
+        "email": "jane.smith@example.com",
+        "phone": "987-654-3210"
+      },
+      {
+        "id": 3,
+        "name": "Daniel Craig",
+        "email": "Daniel.Craig@example.com",
+        "phone": "987-654-3211"
+      },
+      {
+        "id": 4,
+        "name": "Chris Hemsworth",
+        "email": "Chris.Hemsworth@example.com",
+        "phone": "987-678-3211"
+      }
+    ],
+    "transactions": [
+      {
+        "id": 101,
+        "customerId": 1,
+        "amount": 250.75,
+        "date": "2025-02-01",
+        "description": "Purchase of electronics"
+      },
+      {
+        "id": 102,
+        "customerId": 2,
+        "amount": 100.00,
+        "date": "2025-02-05",
+        "description": "Purchase of books"
+      },
+      {
+        "id": 102,
+        "customerId": 2,
+        "amount": 100.00,
+        "date": "2025-02-05",
+        "description": "Purchase of books"
+      },
+      {
+        "id": 102,
+        "customerId": 2,
+        "amount": 100.00,
+        "date": "2025-02-05",
+        "description": "Purchase of books"
+      },
+      {
+        "id": 102,
+        "customerId": 2,
+        "amount": 100.00,
+        "date": "2025-02-05",
+        "description": "Purchase of books"
+      },
+      {
+        "id": 102,
+        "customerId": 2,
+        "amount": 100.00,
+        "date": "2025-02-05",
+        "description": "Purchase of books"
+      },
+      {
+        "id": 102,
+        "customerId": 2,
+        "amount": 100.00,
+        "date": "2025-02-05",
+        "description": "Purchase of books"
+      },
+      {
+        "id": 102,
+        "customerId": 2,
+        "amount": 100.00,
+        "date": "2025-02-05",
+        "description": "Purchase of books"
+      },
+      {
+        "id": 102,
+        "customerId": 2,
+        "amount": 100.00,
+        "date": "2025-02-05",
+        "description": "Purchase of books"
+      },
+      {
+        "id": 102,
+        "customerId": 2,
+        "amount": 100.00,
+        "date": "2025-02-05",
+        "description": "Purchase of books"
+      },
+      {
+        "id": 103,
+        "customerId": 3,
+        "amount": 500.00,
+        "date": "2025-02-10",
+        "description": "Purchase of groceries"
+      },
+      {
+        "id": 104,
+        "customerId": 4,
+        "amount": 20.00,
+        "date": "2025-02-15",
+        "description": "Purchase of stationery"
+      }
+    ]
+  }
