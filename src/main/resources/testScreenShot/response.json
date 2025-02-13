@@ -1,0 +1,53 @@
+[
+    {
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "mobileNumber": 1234567890,
+        "customerid": null,
+        "customerTotalReward": 138.0,
+        "monthWiseReward": {
+            "JANUARY": 138.0
+        },
+        "transactionDetails": [
+            {
+                "transactionDate": "2025-01-20",
+                "transactionAmount": 144.0,
+                "rewardPoints": 138.0
+            }
+        ]
+    },
+    {
+        "name": "test cust1",
+        "email": "test.cust1@example.com",
+        "mobileNumber": 1234567890,
+        "customerid": null,
+        "customerTotalReward": 765.0,
+        "monthWiseReward": {
+            "JANUARY": 110.0,
+            "DECEMBER": 5.0,
+            "NOVEMBER": 650.0
+        },
+        "transactionDetails": [
+            {
+                "transactionDate": "2025-01-15",
+                "transactionAmount": 130.0,
+                "rewardPoints": 110.0
+            },
+            {
+                "transactionDate": "2024-12-15",
+                "transactionAmount": 55.0,
+                "rewardPoints": 5.0
+            },
+            {
+                "transactionDate": "2024-12-15",
+                "transactionAmount": 40.0,
+                "rewardPoints": 0.0
+            },
+            {
+                "transactionDate": "2024-11-15",
+                "transactionAmount": 400.0,
+                "rewardPoints": 650.0
+            }
+        ]
+    }
+]

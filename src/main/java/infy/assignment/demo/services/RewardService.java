@@ -17,7 +17,10 @@ import infy.assignment.demo.model.Customer;
 import infy.assignment.demo.model.Record;
 import infy.assignment.demo.model.TransactionDetail;
 
-
+/**
+ * Description: This class is a service class for Reward points calculation for customer.
+ * All the instance variables are revmoved from this class to avoid using instance variable to store the request data.
+ */
 
 @Service
 public class RewardService implements Reward {
@@ -57,15 +60,15 @@ public class RewardService implements Reward {
    * Description: This method iterate through the list of records and calculate the reward points
    * for each customer.
    * 
-   * @Param: List<Record> recordList : List of records containing transaction details for each
+   * @Param: List<Record> transctionRecordList : List of records containing transaction details for each
    *         customer.
    * @Return: List<Customer>: List of customers with their reward points.
    */
-  public List<Customer> customerRewardCal(List<Record> recordList) {
+  public List<Customer> customerRewardCal(List<Record> transctionRecordList) {
     Map<String, Customer> customerMap = new HashMap<>();
     LocalDate threeMonthsAgo = LocalDate.now().minusMonths(3);
 
-    for (Record record : recordList) {
+    for (Record record : transctionRecordList) {
       processRecord(record, customerMap, threeMonthsAgo);
     }
 

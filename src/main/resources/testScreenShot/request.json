@@ -1,0 +1,86 @@
+[
+    {
+        "transaction": {
+            "transactionDate": "2025-01-20T00:00:00Z",
+            "transactionAmount": 144,
+            "transactionMode": "Credit Card",
+            "transactionStatus": "Success",
+            "transactionId": "TXN123456"
+        },
+        "customer": {
+            "name": "John Doe",
+            "email": "john.doe@example.com",
+            "mobileNumber": 1234567890
+        }
+    },
+    {
+        "transaction": {
+            "transactionDate": "2025-01-15T00:00:00Z",
+            "transactionAmount": 130,
+            "transactionMode": "Debit Card",
+            "transactionStatus": "Success",
+            "transactionId": "TXN654321"
+        },
+        "customer": {
+            "name": "test cust1",
+            "email": "test.cust1@example.com",
+            "mobileNumber": 1234567890
+        }
+    },
+	{
+        "transaction": {
+            "transactionDate": "2024-12-15T00:00:00Z",
+            "transactionAmount": 55,
+            "transactionMode": "Debit Card",
+            "transactionStatus": "Success",
+            "transactionId": "TXN654321"
+        },
+        "customer": {
+            "name": "test cust1",
+            "email": "test.cust1@example.com",
+            "mobileNumber": 1234567890
+        }
+    },
+	{
+        "transaction": {
+            "transactionDate": "2024-12-15T00:00:00Z",
+            "transactionAmount": 40,
+            "transactionMode": "Debit Card",
+            "transactionStatus": "Success",
+            "transactionId": "TXN654321"
+        },
+        "customer": {
+            "name": "test cust1",
+            "email": "test.cust1@example.com",
+            "mobileNumber": 1234567890
+        }
+    },
+	{
+        "transaction": {
+            "transactionDate": "2024-11-15T00:00:00Z",
+            "transactionAmount": 400,
+            "transactionMode": "Debit Card",
+            "transactionStatus": "Success",
+            "transactionId": "TXN654321"
+        },
+        "customer": {
+            "name": "test cust1",
+            "email": "test.cust1@example.com",
+            "mobileNumber": 1234567890
+        }
+    },
+	{
+        "transaction": {
+            "transactionDate": "2024-10-15T00:00:00Z",
+            "transactionAmount": 200,
+            "transactionMode": "Debit Card",
+            "transactionStatus": "Success",
+            "transactionId": "TXN654321"
+        },
+        "customer": {
+            "name": "test cust1",
+            "email": "test.cust1@example.com",
+            "mobileNumber": 1234567890
+        }
+    }
+]
