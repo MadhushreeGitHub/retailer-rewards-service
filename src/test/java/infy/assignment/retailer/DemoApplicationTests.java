@@ -1,4 +1,4 @@
-package infy.assignment.demo;
+package infy.assignment.retailer;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

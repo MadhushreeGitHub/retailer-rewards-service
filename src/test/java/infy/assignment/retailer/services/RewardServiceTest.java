@@ -1,4 +1,4 @@
-package infy.assignment.demo.services;
+package infy.assignment.retailer.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
@@ -10,11 +10,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import infy.assignment.demo.model.Customer;
-import infy.assignment.demo.model.Record;
-import infy.assignment.demo.model.Transaction;
+import infy.assignment.retailer.model.Customer;
+import infy.assignment.retailer.model.Record;
+import infy.assignment.retailer.model.Transaction;
+
 import static org.mockito.Mockito.*;
-import infy.assignment.demo.services.RewardService;
 
 
 

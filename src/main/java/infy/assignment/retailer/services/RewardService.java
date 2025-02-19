@@ -1,7 +1,6 @@
-package infy.assignment.demo.services;
+package infy.assignment.retailer.services;
 
-import java.io.IOException;
-import java.io.InputStream;
+
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -10,30 +9,20 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import infy.assignment.demo.model.Customer;
-import infy.assignment.demo.model.Record;
-import infy.assignment.demo.model.TransactionDetail;
+
+import infy.assignment.retailer.model.Customer;
+import infy.assignment.retailer.model.Record;
+import infy.assignment.retailer.model.TransactionDetail;
 
 /**
- * Description: This class is a service class for Reward points calculation for customer.
- * All the instance variables are revmoved from this class to avoid using instance variable to store the request data.
+ * Description: This class is a service class for Reward points calculation for customer. All the
+ * instance variables are revmoved from this class to avoid using instance variable to store the
+ * request data.
  */
 
 @Service
 public class RewardService implements Reward {
-
-  private List<Record> recordList = new ArrayList<>();
-
-  public RewardService() {
-    try {
-      seedData();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
 
   /**
    * Description: This method calculates the reward points for the customer based on the transaction
@@ -60,8 +49,8 @@ public class RewardService implements Reward {
    * Description: This method iterate through the list of records and calculate the reward points
    * for each customer.
    * 
-   * @Param: List<Record> transctionRecordList : List of records containing transaction details for each
-   *         customer.
+   * @Param: List<Record> transctionRecordList : List of records containing transaction details for
+   *         each customer.
    * @Return: List<Customer>: List of customers with their reward points.
    */
   public List<Customer> customerRewardCal(List<Record> transctionRecordList) {
@@ -83,7 +72,7 @@ public class RewardService implements Reward {
    * @return void
    */
   private void calCustomerTotalReward(Customer customer, double recentRewardPoints) {
-    if (customer.getCustomerTotalReward() == 0.0) {
+    if (Double.compare(customer.getCustomerTotalReward(), 0.0) == 0) {
       customer.setCustomerTotalReward(recentRewardPoints);
     } else {
       customer.setCustomerTotalReward(customer.getCustomerTotalReward() + recentRewardPoints);
@@ -108,7 +97,7 @@ public class RewardService implements Reward {
       customer.setTransactionDetails(new ArrayList<>());
     }
 
-    if (transactionMonth != "" && monthWiseReward.containsKey(transactionMonth)) {
+    if (!transactionMonth.isEmpty() && monthWiseReward.containsKey(transactionMonth)) {
       double monthRewardValue = rewardPoints + monthWiseReward.get(transactionMonth);
       monthWiseReward.put(transactionMonth, monthRewardValue);
     } else {
@@ -186,32 +175,6 @@ public class RewardService implements Reward {
       customer.setTransactionDetails(new ArrayList<>());
       customerMap.put(customerEmail, customer);
     }
-  }
-
-
-  /**
-   * Description: This method reads the seed data from the json file and adds it to the record list.
-   * 
-   * @File: seedData.json
-   * @Path: src/main/resources/seedData.json
-   * @return void
-   * @throws IOException
-   */
-  private void seedData() throws IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
-    InputStream inputStream = getClass().getResourceAsStream("/seedData.json");
-    List<Record> records =
-        objectMapper.readValue(inputStream, new TypeReference<List<Record>>() {});
-    recordList.addAll(records);
-  }
-
-  /**
-   * Description: This method returns the list of records.
-   * 
-   * @return List<Record> : List of records. List created using the seed data and JSON file.
-   */
-  public List<Record> getRecordList() {
-    return recordList;
   }
 
 

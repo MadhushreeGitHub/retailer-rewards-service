@@ -1,6 +1,8 @@
-package infy.assignment.demo;
+package infy.assignment.retailer;
 
 import org.springframework.boot.SpringApplication;
+
+
 
 public class TestDemoApplication {
 

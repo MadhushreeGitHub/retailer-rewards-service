@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>infy.assignment</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>retailer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>retailer</name>
+	<description>Retailer project for Spring Boot</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -81,7 +81,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>infy.assignment.demo.DemoApplication</mainClass>
+					<mainClass>infy.assignment.retailer.DemoApplication</mainClass>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

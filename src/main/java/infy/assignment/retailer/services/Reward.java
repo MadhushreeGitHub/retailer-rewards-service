@@ -1,4 +1,4 @@
-package infy.assignment.demo.services;
+package infy.assignment.retailer.services;
 
 /**
  * Description: This interface is used to calculate reward points for the customer.

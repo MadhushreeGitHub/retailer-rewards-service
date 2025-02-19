@@ -1,4 +1,4 @@
-package infy.assignment.demo;
+package infy.assignment.retailer;
 
 import org.springframework.boot.test.context.TestConfiguration;
 

@@ -1,4 +1,4 @@
-package infy.assignment.demo.controller;
+package infy.assignment.retailer.controller;
 
 
 import static org.mockito.Mockito.when;
@@ -17,10 +17,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import infy.assignment.demo.model.Customer;
-import infy.assignment.demo.model.Record;
-import infy.assignment.demo.model.Transaction;
-import infy.assignment.demo.services.RewardService;
+
+import infy.assignment.retailer.model.Customer;
+import infy.assignment.retailer.model.Record;
+import infy.assignment.retailer.model.Transaction;
+import infy.assignment.retailer.services.RewardService;
 
 /**
  * Description: This class is a test class for RewardController.

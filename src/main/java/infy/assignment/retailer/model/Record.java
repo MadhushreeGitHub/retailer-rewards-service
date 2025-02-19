@@ -1,4 +1,4 @@
-package infy.assignment.demo.model;
+package infy.assignment.retailer.model;
 
 import java.util.HashMap;
 
