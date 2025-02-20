@@ -29,14 +29,14 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
-	<profiles>
+<!--	<profiles>
     <profile>
         <id>skip-tests</id>
         <properties>
             <skipTests>true</skipTests>
         </properties>
     </profile>
-	</profiles>
+	</profiles>-->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -118,15 +118,14 @@
                 	<configFile>https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml</configFile>
             	</configuration>
         </plugin>
-		<!-- filepath: /d:/Madhu/Study/workspace/Assignment19Feb/retailer-rewards-service/pom.xml -->
-
+		
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-surefire-plugin</artifactId>
 				<version>3.0.0-M5</version>
-				<configuration>
+				<!--<configuration>
 						<skipTests>true</skipTests>
-				</configuration>
+				</configuration>-->
 		</plugin>
 
 		</plugins>

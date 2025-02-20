@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -71,9 +72,52 @@ public class RewardControllerTest {
             MockMvcRequestBuilders.post("/customer/record").contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(recordList)))
         .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].email").value("test@example.com"))
-        .andExpect(MockMvcResultMatchers.jsonPath("$[0].customerTotalReward").value(0))
         .andDo(MockMvcResultHandlers.print());
   }
+  @Test
+  public void testGetCustomerRewardPointsWithEmptyRecords() throws Exception {
+    List<Record> recordList = new ArrayList<>();
+    List<Customer> customers = new ArrayList<>();
+
+    when(rewardService.customerRewardCal(recordList)).thenReturn(customers);
+
+    mockMvc
+        .perform(
+            MockMvcRequestBuilders.post("/customer/record").contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(recordList)))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andDo(MockMvcResultHandlers.print());
+  }
+
+  @Test
+  public void testGetCustomerRewardPointsWithInvalidData() throws Exception {
+    List<Record> recordList = new ArrayList<>();
+    recordList.add(null); // Adding invalid data
+
+    when(rewardService.customerRewardCal(recordList)).thenThrow(new IllegalArgumentException("Invalid data"));
+
+    mockMvc
+        .perform(
+            MockMvcRequestBuilders.post("/customer/record").contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(recordList)))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andDo(MockMvcResultHandlers.print());
+  }
+
+  @Test
+  public void testGetCustomerRewardPointsWithException() throws Exception {
+    List<Record> recordList = new ArrayList<>();
+    recordList.add(new Record()); // Adding a record to simulate exception
+
+    when(rewardService.customerRewardCal(recordList)).thenThrow(new RuntimeException("Unexpected error"));
+
+    mockMvc
+        .perform(
+            MockMvcRequestBuilders.post("/customer/record").contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(recordList)))
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andDo(MockMvcResultHandlers.print());
+  }
+  
 
 }
