@@ -67,46 +67,17 @@ To run the tests, use the following command:
 mvn test
 
 
-## Example JSON Payload
+## Example Payload
 
 Here is an example JSON payload for the `/customer/record` endpoint:
 
-[
-    {
-        "transaction": {
-            "transactionDate": "2024-11-20T00:00:00Z",
-            "transactionAmount": 120,
-            "transactionMode": "Credit Card",
-            "transactionStatus": "Success",
-            "transactionId": "TXN123456"
-        },
-        "customer": {
-            "name": "John Doe",
-            "email": "john.doe@example.com",
-            "mobileNumber": 1234567890
-        }
-    },
-    {
-        "transaction": {
-            "transactionDate": "2024-12-15T00:00:00Z",
-            "transactionAmount": 200,
-            "transactionMode": "Debit Card",
-            "transactionStatus": "Success",
-            "transactionId": "TXN654321"
-        },
-        "customer": {
-            "name": "test cust1",
-            "email": "test.cust1@example.com",
-            "mobileNumber": 1234567890
-        }
-    }
-]
+On Postman execute this URL with POST method
 
 
 ## Example JSON Response
 
 Here is an example JSON response for the `/customer/record` endpoint:
-
+```json
 [
     {
         "name": "John Doe",
