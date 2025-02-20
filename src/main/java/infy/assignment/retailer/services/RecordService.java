@@ -15,6 +15,8 @@ public class RecordService {
   private RecordRepository recordRepository;
 
   public List<Record> getAllRecords() {
+    System.out.println("****************Inside getAllRecords***************");
+    System.out.println(recordRepository.findAll());
     return recordRepository.findAll();
   }
 

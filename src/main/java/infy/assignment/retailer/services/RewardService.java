@@ -92,7 +92,7 @@ public class RewardService implements Reward {
   private void updateMontWiseReward(Customer customer, String transactionMonth,
       double rewardPoints) {
 
-    HashMap<String, Double> monthWiseReward = customer.getMonthWiseReward();
+     Map<String, Double> monthWiseReward = customer.getMonthWiseReward();
     if (customer.getTransactionDetails() == null) {
       customer.setTransactionDetails(new ArrayList<>());
     }

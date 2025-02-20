@@ -1,8 +1,10 @@
 package infy.assignment.retailer.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.CollectionTable;
@@ -56,10 +58,15 @@ public class Customer {
   @CollectionTable(name = "customer_rewards", joinColumns = @JoinColumn(name = "customer_id"))
   @MapKeyColumn(name = "month")
   @Column(name = "reward")
-  private HashMap<String, Double> monthWiseReward;
+  private Map<String, Double> monthWiseReward;
+
 
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
   @Builder.Default
+  @JsonManagedReference
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   private List<TransactionDetail> transactionDetails = new ArrayList<>();
+
 
 }

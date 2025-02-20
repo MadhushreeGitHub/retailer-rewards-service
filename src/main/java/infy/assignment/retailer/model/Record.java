@@ -1,6 +1,7 @@
 package infy.assignment.retailer.model;
 
-import java.util.HashMap;
+
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -48,7 +49,7 @@ public class Record {
   @ElementCollection
   @MapKeyColumn(name = "product_id")
   @Column(name = "quantity")
-  private HashMap<String, Integer> productQuantityMap;
+  private Map<String, Integer> productQuantityMap;
 
   @Column(name = "order_date")
   private String orderDate;

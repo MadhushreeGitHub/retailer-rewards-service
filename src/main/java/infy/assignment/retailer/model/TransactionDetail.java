@@ -2,6 +2,8 @@ package infy.assignment.retailer.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,5 +31,8 @@ public class TransactionDetail {
 
   @ManyToOne
   @JoinColumn(name = "customer_id", nullable = false)
+  @JsonBackReference
+  @ToString.Exclude
+  @EqualsAndHashCode.Exclude
   private Customer customer;
 }
