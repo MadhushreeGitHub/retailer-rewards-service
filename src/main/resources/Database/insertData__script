@@ -1,62 +1,45 @@
--- Insert data into Customers table
-INSERT INTO Customers (CustomerID, FirstName, LastName, Email)
+INSERT INTO product (id, product_name, description, product_price, product_available_quantity) 
 VALUES 
-(1, 'John', 'Doe', 'john.doe@example.com'),
-(2, 'Jane', 'Smith', 'jane.smith@example.com'),
-(3, 'Michael', 'Johnson', 'michael.johnson@example.com'),
-(4, 'Emily', 'Davis', 'emily.davis@example.com'),
-(5, 'David', 'Wilson', 'david.wilson@example.com');
+(1, 'laptop', 'dell', 10.99, 100),
+(2, 'mouse', 'mac', 20.99, 200),
+(3, 'keyboard', 'Asus', 30.99, 300);
 
--- Insert data into Products table
-INSERT INTO Products (ProductID, ProductName, Price)
+INSERT INTO customer (id, customer_name, customer_email, customer_mobile_number, customer_total_reward) 
 VALUES 
-(1, 'Laptop', 999.99),
-(2, 'Smartphone', 499.99),
-(3, 'Tablet', 299.99),
-(4, 'Headphones', 99.99),
-(5, 'Smartwatch', 199.99);
+(1, 'John Doe', 'john.doe@example.com', 1234567890, 100.50),
+(2, 'Jane Smith', 'jane.smith@example.com', 2345678901, 200.75),
+(3, 'Alice Johnson', 'alice.johnson@example.com', 3456789012, 150.25);
 
--- Insert data into Orders table
-INSERT INTO Orders (OrderID, CustomerID, OrderDate)
+INSERT INTO customer_rewards (customer_id, month, reward) 
 VALUES 
-(1, 1, '2023-01-01'),
-(2, 2, '2023-01-02'),
-(3, 3, '2023-01-03'),
-(4, 4, '2023-01-04'),
-(5, 5, '2023-01-05');
+(1, 'January', 50.00),
+(2, 'January', 75.00),
+(3, 'January', 60.00),
+(1, 'February', 40.00),
+(2, 'February', 85.00),
+(3, 'February', 70.00);
 
--- Insert data into OrderItems table
-INSERT INTO OrderItems (OrderItemID, OrderID, ProductID, Quantity)
+INSERT INTO transaction (id, customer_id, transaction_date, transaction_amount, transaction_mode, transaction_status, transaction_remarks, transaction_remarks) 
 VALUES 
-(1, 1, 1, 1),
-(2, 1, 2, 2),
-(3, 2, 3, 1),
-(4, 3, 4, 3),
-(5, 4, 5, 1);
+(1, 1, '2023-01-15 10:30:00', 150.00, 'Credit Card', 'Completed', 'First transaction', 'No remarks'),
+(2, 2, '2023-01-16 11:00:00', 200.00, 'Debit Card', 'Completed', 'Second transaction', 'No remarks'),
+(3, 3, '2023-01-17 12:45:00', 250.00, 'Net Banking', 'Pending', 'Third transaction', 'No remarks');
 
--- Insert data into Rewards table
-INSERT INTO Rewards (RewardID, CustomerID, Points)
-VALUES 
-(1, 1, 100),
-(2, 2, 200),
-(3, 3, 300),
-(4, 4, 400),
-(5, 5, 500);
 
--- Insert data into Transactions table
-INSERT INTO Transactions (TransactionID, CustomerID, OrderID, PointsEarned, PointsRedeemed, TransactionDate)
+INSERT INTO transaction_detail (id, reward_points, transaction_amount, transaction_date, customer_id) 
 VALUES 
-(1, 1, 1, 100, 0, '2023-01-01'),
-(2, 2, 2, 200, 0, '2023-01-02'),
-(3, 3, 3, 300, 0, '2023-01-03'),
-(4, 4, 4, 400, 0, '2023-01-04'),
-(5, 5, 5, 500, 0, '2023-01-05');
+(1, 10.50, 150.00, '2023-01-15', 1),
+(2, 20.75, 200.00, '2023-01-16', 2),
+(3, 15.25, 250.00, '2023-01-17', 3);
 
--- Insert data into Transaction detail table
-INSERT INTO TransactionDetails (TransactionDetailID, TransactionID, ProductID, Quantity)
+INSERT INTO record (id, customer_id, transaction_id, order_status, order_date, order_remarks) 
 VALUES 
-(1, 1, 1, 1),
-(2, 1, 2, 2),
-(3, 2, 3, 1),
-(4, 3, 4, 3),
-(5, 4, 5, 1);
+(1, 1, 1, 'Shipped', '2023-01-18', 'Delivered on time'),
+(2, 2, 2, 'Processing', '2023-01-19', 'In progress'),
+(3, 3, 3, 'Cancelled', '2023-01-20', 'Customer cancelled');
+
+INSERT INTO record_product_quantity_map (record_id, quantity, product_id) 
+VALUES 
+(1, 2, '1'),
+(2, 1, '2'),
+(3, 3, '3');
