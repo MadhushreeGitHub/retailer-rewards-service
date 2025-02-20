@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+
 
 /**
  * Description: This class is a model class for Record.
@@ -23,15 +23,37 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "record")
 public class Record {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "customer_id", nullable = false)
   @Autowired
   private Customer customer;
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "transaction_id", nullable = false)
   @Autowired
   private Transaction transaction;
+
+  @Column(name = "order_status")
   private String orderStatus;
+
+  @ElementCollection
+  @MapKeyColumn(name = "product_id")
+  @Column(name = "quantity")
   private HashMap<String, Integer> productQuantityMap;
-  private String orderId;
+
+  @Column(name = "order_date")
   private String orderDate;
+
+  @Column(name = "order_remarks")
   private String orderRemarks;
 
   public Record(Transaction transaction, Customer customer) {

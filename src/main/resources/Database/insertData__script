@@ -1,0 +1,62 @@
+-- Insert data into Customers table
+INSERT INTO Customers (CustomerID, FirstName, LastName, Email)
+VALUES 
+(1, 'John', 'Doe', 'john.doe@example.com'),
+(2, 'Jane', 'Smith', 'jane.smith@example.com'),
+(3, 'Michael', 'Johnson', 'michael.johnson@example.com'),
+(4, 'Emily', 'Davis', 'emily.davis@example.com'),
+(5, 'David', 'Wilson', 'david.wilson@example.com');
+
+-- Insert data into Products table
+INSERT INTO Products (ProductID, ProductName, Price)
+VALUES 
+(1, 'Laptop', 999.99),
+(2, 'Smartphone', 499.99),
+(3, 'Tablet', 299.99),
+(4, 'Headphones', 99.99),
+(5, 'Smartwatch', 199.99);
+
+-- Insert data into Orders table
+INSERT INTO Orders (OrderID, CustomerID, OrderDate)
+VALUES 
+(1, 1, '2023-01-01'),
+(2, 2, '2023-01-02'),
+(3, 3, '2023-01-03'),
+(4, 4, '2023-01-04'),
+(5, 5, '2023-01-05');
+
+-- Insert data into OrderItems table
+INSERT INTO OrderItems (OrderItemID, OrderID, ProductID, Quantity)
+VALUES 
+(1, 1, 1, 1),
+(2, 1, 2, 2),
+(3, 2, 3, 1),
+(4, 3, 4, 3),
+(5, 4, 5, 1);
+
+-- Insert data into Rewards table
+INSERT INTO Rewards (RewardID, CustomerID, Points)
+VALUES 
+(1, 1, 100),
+(2, 2, 200),
+(3, 3, 300),
+(4, 4, 400),
+(5, 5, 500);
+
+-- Insert data into Transactions table
+INSERT INTO Transactions (TransactionID, CustomerID, OrderID, PointsEarned, PointsRedeemed, TransactionDate)
+VALUES 
+(1, 1, 1, 100, 0, '2023-01-01'),
+(2, 2, 2, 200, 0, '2023-01-02'),
+(3, 3, 3, 300, 0, '2023-01-03'),
+(4, 4, 4, 400, 0, '2023-01-04'),
+(5, 5, 5, 500, 0, '2023-01-05');
+
+-- Insert data into Transaction detail table
+INSERT INTO TransactionDetails (TransactionDetailID, TransactionID, ProductID, Quantity)
+VALUES 
+(1, 1, 1, 1),
+(2, 1, 2, 2),
+(3, 2, 3, 1),
+(4, 3, 4, 3),
+(5, 4, 5, 1);

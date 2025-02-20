@@ -5,12 +5,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import infy.assignment.retailer.model.Customer;
 import infy.assignment.retailer.model.Record;
+import infy.assignment.retailer.services.RecordService;
 import infy.assignment.retailer.services.RewardService;
 
 
@@ -26,6 +27,9 @@ public class RewardController {
   @Autowired
   private RewardService rewardService;
 
+  @Autowired
+  private RecordService recordService;
+
   /**
    * Description: This method is used to get the reward points for the customer based on the
    * transaction details.
@@ -35,8 +39,9 @@ public class RewardController {
    * @Return: List<Customer>: List of customers with their reward points.
    */
   @PostMapping("/record")
-  public List<Customer> getCustomerRewardPoints(@RequestBody List<Record> recordList) {
+  public List<Customer> getCustomerRewardPoints() {
     try {
+      List<Record> recordList = recordService.getAllRecords();
       return rewardService.customerRewardCal(recordList);
     } catch (IllegalArgumentException e) {
       // Handle IllegalArgumentException

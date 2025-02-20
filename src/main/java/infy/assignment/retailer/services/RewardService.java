@@ -150,8 +150,9 @@ public class RewardService implements Reward {
    */
   private void addTransactionDetail(Customer customer, LocalDate transactionDate,
       double transactionAmount, double rewardPoints) {
-    TransactionDetail transactionDetail =
-        new TransactionDetail(transactionDate, transactionAmount, rewardPoints);
+    TransactionDetail transactionDetail = TransactionDetail.builder()
+        .transactionDate(transactionDate).transactionAmount(transactionAmount)
+        .rewardPoints(rewardPoints).customer(customer).build();
     List<TransactionDetail> transactionDetails = customer.getTransactionDetails();
     if (transactionDetails == null) {
       transactionDetails = new ArrayList<>();
