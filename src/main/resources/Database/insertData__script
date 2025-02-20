@@ -19,11 +19,12 @@ VALUES
 (2, 'February', 85.00),
 (3, 'February', 70.00);
 
-INSERT INTO transaction (id, customer_id, transaction_date, transaction_amount, transaction_mode, transaction_status, transaction_remarks, transaction_remarks) 
+INSERT INTO transaction (id, customer_id, transaction_date, transaction_amount, transaction_mode, transaction_status, transaction_remarks) 
 VALUES 
-(1, 1, '2023-01-15 10:30:00', 150.00, 'Credit Card', 'Completed', 'First transaction', 'No remarks'),
-(2, 2, '2023-01-16 11:00:00', 200.00, 'Debit Card', 'Completed', 'Second transaction', 'No remarks'),
-(3, 3, '2023-01-17 12:45:00', 250.00, 'Net Banking', 'Pending', 'Third transaction', 'No remarks');
+(1, 1, '2023-01-15 10:30:00', 150.00, 'Credit Card', 'Completed', 'First transaction'),
+(2, 2, '2023-01-16 11:00:00', 200.00, 'Debit Card', 'Completed', 'Second transaction'),
+(3, 3, '2023-01-17 12:45:00', 250.00, 'Net Banking', 'Pending', 'Third transaction');
+
 
 
 INSERT INTO transaction_detail (id, reward_points, transaction_amount, transaction_date, customer_id) 
